@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "ARCharacter.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
 UCLASS()
 class ACTIONROGUELIKE_API AARCharacter : public ACharacter
 {
@@ -16,8 +18,18 @@ public:
 	AARCharacter();
 
 protected:
+
+	//Uses Unreal's property system to expose this component everywhere
+	UPROPERTY(VisibleAnywhere)
+	USpringArmComponent* SpringArmComp;
+
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* CameraComp;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	void MoveForward(float value);
 
 public:	
 	// Called every frame
@@ -25,5 +37,4 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
 };
